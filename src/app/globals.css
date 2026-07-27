@@ -179,10 +179,15 @@
     -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
 
-  /* Section shell: consistent rhythm + max width everywhere. */
+  /* Section shell: consistent rhythm + max width everywhere.
+     Top and bottom are deliberately asymmetric — a jump link lands on the
+     section top, so a large padding-top reads as dead space under the navbar.
+     Bottom stays generous to separate one section from the next.
+     ADJUST HERE to change the gap under the navbar on every anchor jump. */
   .section {
     position: relative;
-    padding-block: clamp(5rem, 12vw, 9rem);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: clamp(5rem, 12vw, 9rem);
   }
 
   .container-page {

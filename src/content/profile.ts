@@ -24,10 +24,36 @@ export const profile = {
 
   location: "Bekasi Utara, Indonesia",
 
+  /**
+   * Green pill at the very top of the hero.
+   * Change the text here, or set it to null to remove the badge entirely.
+   */
+  availability: "Building Better Infrastructure",
+
   // TODO: the source PDF's font subset contained no glyph for the digit "4",
   // so every 4 was silently dropped during extraction. Retype the real number.
   phone: "+62 822 9933 7687",
   phoneHref: "tel:+6282299337687",
+
+  /**
+   * WhatsApp deep link, shown in the contact section instead of a plain call
+   * link. The number must be international format with digits only — no "+",
+   * no spaces, no leading 0 (62… not 062… and not 0822…).
+   */
+  whatsapp: "https://wa.me/6282299337687",
+
+  /**
+   * Web3Forms access key — the contact form posts here and the message lands
+   * in the inbox registered at web3forms.com.
+   *
+   * This key is public by design: it ships in the client bundle and only
+   * identifies the destination inbox. It grants no account access.
+   *
+   * NOTE: the key is registered against the domain "localhost". Before going
+   * live, add the real domain in the Web3Forms dashboard or submissions from
+   * the deployed site will be rejected.
+   */
+  web3formsKey: "f8b81ea8-d0d8-4e0e-ab5a-ac810bd926fd",
 
   // TODO: the CV decoded as "miftahulriiziiq@gmail.com" (doubled i's — likely a
   // typo in the PDF itself). Confirm which address you want shown publicly.
@@ -39,12 +65,12 @@ export const profile = {
 
   /** Hero paragraph. Kept to three sentences; longer reads as a wall of text. */
   intro:
-    "I'm an Infrastructure & Cloud Engineer who works across the full stack of what keeps systems online: Linux and Windows Server administration, VMware virtualisation, network security, monitoring and backup. I care about the parts nobody sees until they break — reverse proxies terminating TLS correctly, firewall rules that are tight without being brittle, backups that have actually been restored at least once. When I'm not doing it at work, I'm doing it in my own rack at home.",
+    "I build and maintain reliable IT infrastructure across on-premise and cloud environments, ensuring secure, scalable, and high-performing systems. Passionate about Linux, cloud technologies, networking, and continuous learning.",
 
   /** Rendered as animated counters in the hero. */
   stats: [
-    { label: "Years in IT", value: 5, suffix: "+" },
-    { label: "Services self-hosted", value: 12, suffix: "" },
+    { label: "Years in IT", value: 4, suffix: "+" },
+    { label: "Services self-hosted", value: 5, suffix: "" },
     { label: "Homelab uptime", value: 99.9, suffix: "%", decimals: 1 },
   ],
 
@@ -56,6 +82,9 @@ export const profile = {
 
   /** Drop the real PDF at `public/resume.pdf` to make this link live. */
   resumeUrl: "/resume.pdf",
+
+  /** Small print in the footer, after the copyright line. */
+  footerNote: "Built with Next.js & Tailwind CSS.",
 
   education: {
     institution: "Universitas Bina Insani",

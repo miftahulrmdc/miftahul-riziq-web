@@ -13,7 +13,10 @@ export function Hero() {
   const typed = useTypewriter(profile.roles);
 
   return (
-    <section id="home" className="relative flex min-h-svh items-center pt-24 sm:pt-28">
+    // items-start, not items-center: centring inside a full-height section
+    // means the taller the visitor's screen, the further the content sinks
+    // below the navbar. Anchoring to the top keeps the gap constant everywhere.
+    <section id="home" className="relative flex min-h-svh items-start pt-28 sm:pt-32">
       <div className="container-page grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
         {/* ---------------- Copy ---------------- */}
         <motion.div
@@ -22,15 +25,19 @@ export function Hero() {
           variants={stagger(0.09, 0.15)}
           className="flex flex-col items-start"
         >
-          <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-600/20 bg-brand-50 px-3.5 py-1.5 text-xs font-semibold text-brand-700 dark:border-brand-400/20 dark:bg-brand-400/10 dark:text-brand-300">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-500 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-brand-500" />
+          {/* Availability badge — text lives in content/profile.ts, and setting
+              it to null removes the badge entirely. */}
+          {profile.availability ? (
+            <motion.div variants={fadeUp}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand-600/20 bg-brand-50 px-3.5 py-1.5 text-xs font-semibold text-brand-700 dark:border-brand-400/20 dark:bg-brand-400/10 dark:text-brand-300">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-500 opacity-75" />
+                  <span className="relative inline-flex size-2 rounded-full bg-brand-500" />
+                </span>
+                {profile.availability}
               </span>
-              Available for new opportunities
-            </span>
-          </motion.div>
+            </motion.div>
+          ) : null}
 
           <motion.p
             variants={fadeUp}

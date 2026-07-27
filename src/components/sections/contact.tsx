@@ -2,7 +2,17 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle2,
+  Github,
+  Linkedin,
+  Loader2,
+  Mail,
+  MapPin,
+  Send,
+} from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profile } from "@/content/profile";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
@@ -38,10 +48,10 @@ function ContactDetails() {
       Icon: Mail,
     },
     {
-      label: "Phone",
+      label: "WhatsApp",
       value: profile.phone,
-      href: profile.phoneHref,
-      Icon: Phone,
+      href: profile.whatsapp,
+      Icon: WhatsAppIcon,
     },
     {
       label: "GitHub",
@@ -63,7 +73,11 @@ function ContactDetails() {
       whileInView="visible"
       viewport={VIEWPORT}
       variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
-      className="flex flex-col gap-3"
+      // The grid stretches this column to match the form, but the cards only
+      // fill part of it. `grow` shares the leftover height between them so the
+      // last card's bottom edge lines up with the form's. Only from lg up —
+      // below that the columns stack and there is no height to match.
+      className="flex flex-col gap-3 lg:[&>*]:grow"
     >
       {channels.map(({ label, value, href, Icon }) => (
         <motion.a
@@ -84,9 +98,9 @@ function ContactDetails() {
         </motion.a>
       ))}
 
-      {/* Location card. A real embedded map would load third-party scripts and
-          leak visitor IPs, so this is a static, privacy-preserving stand-in
-          that links out only when the visitor chooses to click. */}
+      {/* Location card — display only, no map embed and no outbound link. An
+          embedded map would load third-party scripts and expose visitor IPs on
+          page load. */}
       <motion.div
         variants={slideInLeft}
         className="glass relative overflow-hidden rounded-2xl p-5"
@@ -102,52 +116,95 @@ function ContactDetails() {
             <span className="block text-sm font-semibold">{profile.location}</span>
           </span>
         </div>
-        <a
-          href={`https://www.google.com/maps/search/${encodeURIComponent(profile.location)}`}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="relative mt-4 inline-block text-xs font-semibold text-brand-700 hover:underline dark:text-brand-300"
-        >
-          Open in Google Maps →
-        </a>
       </motion.div>
     </motion.div>
   );
 }
 
+type FormStatus = "idle" | "sending" | "success" | "error";
+
 /**
  * Contact form.
  *
- * There is no backend, so rather than faking a success state the form composes
- * a pre-filled message and hands it to the visitor's own mail client. Nothing
- * is transmitted anywhere, and the visitor sees exactly what gets sent.
+ * Submits to Web3Forms, which relays the message to the inbox registered
+ * against `profile.web3formsKey` — so the visitor needs no mail client and the
+ * message arrives without any further action from them.
  *
- * To make this a real API-backed form later, replace `handleSubmit` with a
- * POST to a route handler — the markup and validation already suit that.
+ * Single call to action by design: the WhatsApp card above already covers
+ * anyone who would rather message directly, and a second button here would
+ * only split attention.
  */
 function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-
-    const name = String(data.get("name") ?? "");
-    const email = String(data.get("email") ?? "");
-    const subject = String(data.get("subject") ?? "");
-    const message = String(data.get("message") ?? "");
-
-    const body = `${message}\n\n—\n${name}\n${email}`;
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-
-    setSent(true);
+  /** Pull the four fields out of whichever form triggered the submit. */
+  const readFields = (form: HTMLFormElement) => {
+    const data = new FormData(form);
+    return {
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      subject: String(data.get("subject") ?? ""),
+      message: String(data.get("message") ?? ""),
+    };
   };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fields = readFields(form);
+
+    setStatus("sending");
+    setError(null);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: profile.web3formsKey,
+          ...fields,
+          from_name: fields.name,
+          // Spread first, then override: prefixing the subject makes portfolio
+          // enquiries filterable in the inbox.
+          subject: `[Portfolio] ${fields.subject}`,
+        }),
+      });
+
+      const result = (await res.json()) as { success?: boolean; message?: string };
+
+      if (!res.ok || !result.success) {
+        throw new Error(result.message || `Request failed (${res.status})`);
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (err) {
+      // Never swallow the failure — a contact form that silently drops a
+      // recruiter's message is worse than having no form at all.
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    }
+  };
+
 
   return (
     <Reveal className="glass rounded-3xl p-6 sm:p-8">
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        {/* Honeypot: hidden from people, irresistible to bots. Web3Forms drops
+            any submission where this is filled in. */}
+        <input
+          type="checkbox"
+          name="botcheck"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          className="hidden"
+        />
+
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Name" name="name" placeholder="Your name" required />
           <Field
@@ -177,27 +234,52 @@ function ContactForm() {
           />
         </label>
 
-        <div className="flex flex-wrap items-center gap-4">
-          <Button type="submit" size="lg">
-            <Send />
-            Send Message
+        <div className="flex justify-center pt-1">
+          <Button type="submit" size="lg" disabled={status === "sending"}>
+            {status === "sending" ? (
+              <>
+                <Loader2 className="animate-spin" />
+                Sending…
+              </>
+            ) : (
+              <>
+                <Send />
+                Send Message
+              </>
+            )}
           </Button>
-
-          {sent ? (
-            <motion.p
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-sm text-ink-soft"
-              role="status"
-            >
-              Your mail app should now be open with the message ready to send.
-            </motion.p>
-          ) : null}
         </div>
 
-        <p className="text-xs text-ink-faint">
-          This form opens your own email client — nothing is submitted to a server.
-        </p>
+        {status === "success" ? (
+          <motion.p
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            role="status"
+            className="inline-flex items-start gap-2 rounded-xl border border-brand-600/20 bg-brand-50/60 px-3.5 py-2.5 text-sm text-brand-800 dark:border-brand-400/20 dark:bg-brand-400/8 dark:text-brand-200"
+          >
+            <CheckCircle2 className="mt-0.5 size-4 shrink-0" />
+            Message sent — thank you. I&rsquo;ll reply to your email shortly.
+          </motion.p>
+        ) : null}
+
+        {status === "error" ? (
+          <motion.p
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            role="alert"
+            className="inline-flex items-start gap-2 rounded-xl border border-red-500/25 bg-red-500/8 px-3.5 py-2.5 text-sm text-red-700 dark:text-red-300"
+          >
+            <AlertCircle className="mt-0.5 size-4 shrink-0" />
+            <span>
+              Couldn&rsquo;t send that ({error}). Please use the WhatsApp button, or
+              email me directly at{" "}
+              <a href={`mailto:${profile.email}`} className="font-semibold underline">
+                {profile.email}
+              </a>
+              .
+            </span>
+          </motion.p>
+        ) : null}
       </form>
     </Reveal>
   );
