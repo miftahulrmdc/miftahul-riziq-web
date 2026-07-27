@@ -1,0 +1,93 @@
+/**
+ * ============================================================================
+ *  EXPERIENCE — rendered by the vertical timeline.
+ * ============================================================================
+ *
+ *  Bullets are taken verbatim from the CV and translated to English.
+ *  ⚠️  Employment dates were not present in the source PDF — see the `period`
+ *  fields tagged TODO below.
+ */
+
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  /** Display string, e.g. "Mar 2023 — Present". */
+  period: string;
+  location: string;
+  /** Shown as a pill on the card. */
+  type: string;
+  /** Lucide icon name resolved in the Experience component. */
+  icon: "server" | "cloud" | "wrench";
+  summary: string;
+  highlights: string[];
+  /** Surfaced as small tags under the bullets. */
+  stack: string[];
+  /** Marks the card as the current role (adds a pulsing dot). */
+  current?: boolean;
+}
+
+export const experience: ExperienceItem[] = [
+  {
+    company: "Syntech Mitra Integrasi",
+    role: "Infrastructure & Cloud Engineer",
+    period: "17 Desember 2025 - 24 Juli 2026",
+    location: "Bekasi, Indonesia",
+    type: "Full-time",
+    icon: "cloud",
+    current: true,
+    summary:
+      "Own the availability, security and performance of hybrid infrastructure spanning on-premise hardware and public cloud.",
+    highlights: [
+      "Operate and maintain hybrid on-premise and cloud IT infrastructure, keeping availability, security and system performance at target.",
+      "Configure and manage network connectivity through FortiGate firewalls, including site-to-site VPN tunnels and hardened network access.",
+      "Run centralised storage and backup on Synology NAS — shared file services, scheduled backups and restore verification.",
+      "Configure Nginx as a reverse proxy with SSL/TLS termination to secure application access.",
+      "Manage DNS records, SSL certificates, firewall policy and network routing supporting production applications and services.",
+      "Troubleshoot across the whole stack: servers, networking, cloud services and applications.",
+      "Implement and manage Amazon Web Services (AWS) workloads.",
+    ],
+    stack: ["FortiGate", "AWS", "Nginx", "Synology NAS", "Linux", "DNS / SSL", "VPN"],
+  },
+  {
+    company: "IDX Solusi Teknologi Informasi",
+    role: "Cloud & Managed Services",
+    period: "17 Oktober 2022 - 14 Desember 2025",
+    location: "Jakarta Selatan, Indonesia",
+    type: "Full-time",
+    icon: "server",
+    summary:
+      "Monitored and maintained enterprise virtualisation and server estates for managed-service customers, on-site at the data centre.",
+    highlights: [
+      "Monitored server performance, capacity and availability using Nagios, ManageEngine OpManager and Grafana to keep services within SLA.",
+      "Installed, configured, administered and maintained VMware vSphere and vCenter virtualisation environments.",
+      "Provided technical support and troubleshooting across the VMware estate to protect service stability.",
+      "Acted as Data Center Representative, supporting on-site operations and activities according to established procedure.",
+      "Performed hardware troubleshooting, maintenance and replacement to keep operational equipment functioning.",
+      "Handled and resolved ticketing requests from internal users and customers within agreed targets.",
+      "Analysed, validated and reconciled data in the KSEI database using SQL queries to identify and resolve data discrepancies.",
+      "Coordinated with related teams through investigation and resolution until data returned to a valid state.",
+    ],
+    stack: ["VMware vSphere", "vCenter", "Nagios", "OpManager", "Grafana", "SQL", "Data Center"],
+  },
+  {
+    company: "Sultan Metal Forming Indonesia",
+    // TODO: the role title was not recoverable from the PDF (likely IT Support
+    // or General Affair). Correct this.
+    role: "Staff HR&GA",
+    period: "24 Februari 2020 — 29 Januari 2021",
+    location: "Cikarang, Indonesia",
+    type: "Full-time",
+    icon: "wrench",
+    summary:
+      "Melakukan dokumentasi serta perawatan terkait infrastruktur perusahaan",
+    highlights: [
+      "Memelihara dan merawat aset perusahaan.",
+      "Melakukan maintenance komputer perusahaan dan backup data perusahaan sesuai jadwal yang sudah di tentukan.",
+      "Melakukan troubleshooting perangkat keras maupun perangkat lunak.",
+      "Input data absensi karyawan.",
+      "Membuat laporan jadwal maintenance kendaraan operasional.",
+      "Membuat laporan berkala yang dapat dipertanggung jawabkan",
+    ],
+    stack: ["Absensi", "Hardware", "Software", "Asset Management"],
+  },
+];

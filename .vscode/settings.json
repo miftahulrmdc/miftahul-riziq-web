@@ -1,0 +1,34 @@
+{
+  // Tailwind v4 uses at-rules (@theme, @custom-variant, @apply) that VS Code's
+  // built-in CSS engine doesn't know. Without this you get dozens of fake
+  // "Unknown at rule" warnings in globals.css.
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+
+  // Use the TypeScript version from node_modules, not the one bundled with VS Code.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  // Prefer the "@/..." import style already used across the project.
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // The content files hold long paragraph strings on a single line. Without
+  // wrapping you have to scroll sideways to read them.
+  "editor.wordWrap": "on",
+
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+
+  // Tailwind autocomplete inside cn(...) and cva(...) helpers.
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+
+  "files.exclude": {
+    "**/.next": true,
+    "**/node_modules": true
+  }
+}
