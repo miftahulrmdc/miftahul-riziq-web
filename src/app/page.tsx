@@ -4,16 +4,18 @@ import { Contact } from "@/components/sections/contact";
 import { Experience } from "@/components/sections/experience";
 import { Hero } from "@/components/sections/hero";
 import { Homelab } from "@/components/sections/homelab";
-import { Projects } from "@/components/sections/projects";
-import { Skills } from "@/components/sections/skills";
 import { TechStack } from "@/components/sections/tech-stack";
 
 /**
  * Single-page portfolio.
  *
- * Section order is deliberate: credibility (experience, skills) before the
- * homelab showpiece, so RMDC reads as evidence of an established engineer
- * rather than as a hobby project standing in for professional work.
+ * Section order is deliberate: credibility (experience) before the homelab
+ * showpiece, so RMDC reads as evidence of an established engineer rather than
+ * as a hobby project standing in for professional work.
+ *
+ * Projects and Skills are intentionally absent — that material is moving to the
+ * separate RMDC site. Their components still live under components/sections/,
+ * so re-adding a line here brings either one back.
  */
 export default function HomePage() {
   return (
@@ -21,8 +23,6 @@ export default function HomePage() {
       <Hero />
       <About />
       <Experience />
-      <Skills />
-      <Projects />
       <Homelab />
       <TechStack />
       <Certifications />

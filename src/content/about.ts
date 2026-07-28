@@ -17,27 +17,33 @@ export const about = {
     "I am passionate about developing a career in IT Infrastructure, Cloud Engineering, and DevOps. I actively build and develop my personal home lab as a learning tool, technology exploration, and continuous competency improvement. I am committed to continuously learning the latest technologies and implementing best practices in managing secure, reliable, and scalable infrastructure.",
   ],
 
-  /** Rendered as a grid of small cards beside the narrative. */
+  /**
+   * Rendered as a grid of small cards beside the narrative.
+   *
+   * Each one names something actually done — a principle with no evidence
+   * behind it reads like every other portfolio, and invites an interview
+   * question you cannot answer.
+   */
   pillars: [
     {
       title: "Reliability first",
       icon: "shield-check",
-      body: "Uptime is a design outcome, not luck. Redundancy, monitoring and tested restores — in that order.",
+      body: "Five years keeping production estates inside SLA — VMware clusters on a data centre floor, hybrid infrastructure today. Redundancy, monitoring, and restores that have actually been tested.",
     },
     {
       title: "Security by default",
       icon: "lock",
-      body: "Segmented networks, least privilege and TLS everywhere. Secure defaults beat remembering to lock the door.",
+      body: "FortiGate policy, site-to-site VPN, TLS terminated at the proxy. Segmented networks, so one compromised device reaches nothing else.",
     },
     {
-      title: "Automate the repeat",
-      icon: "workflow",
-      body: "If I have configured it twice by hand, it belongs in a script — or better, in version control as code.",
+      title: "Visibility before guesswork",
+      icon: "activity",
+      body: "Nagios, OpManager and Grafana. You cannot operate what you cannot see — I instrument first, then tune.",
     },
     {
       title: "Document as you build",
       icon: "file-text",
-      body: "An undocumented system has exactly one operator. That is a single point of failure with a pulse.",
+      body: "An undocumented system has exactly one operator. I write the runbook as I build — that is the difference between a system and a dependency on me.",
     },
   ],
 

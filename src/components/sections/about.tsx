@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import {
+  Activity,
   ArrowRight,
   FileText,
   GraduationCap,
   Lock,
   ShieldCheck,
-  Workflow,
 } from "lucide-react";
 import { about } from "@/content/about";
 import { profile } from "@/content/profile";
@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 const PILLAR_ICONS = {
   "shield-check": ShieldCheck,
   lock: Lock,
-  workflow: Workflow,
+  activity: Activity,
   "file-text": FileText,
 } as const;
 

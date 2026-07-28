@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Download, Menu, X } from "lucide-react";
+import { ArrowUpRight, Download, Menu, X } from "lucide-react";
 import { navLinks } from "@/content/navigation";
 import { profile } from "@/content/profile";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
@@ -10,7 +10,9 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const NAV_IDS = navLinks.map((l) => l.id);
+// Only in-page entries take part in the scroll-spy; an off-site link has no
+// section on this page to observe.
+const NAV_IDS = navLinks.filter((l) => !l.href).map((l) => l.id);
 
 /**
  * Sticky navigation.
@@ -73,14 +75,17 @@ export function Navbar() {
           {/* Desktop links */}
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => {
-              const isActive = activeId === link.id;
+              const isExternal = Boolean(link.href);
+              const isActive = !isExternal && activeId === link.id;
               return (
                 <li key={link.id}>
                   <a
-                    href={`#${link.id}`}
+                    href={link.href ?? `#${link.id}`}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noreferrer noopener" : undefined}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
-                      "relative block rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
+                      "relative flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
                       isActive
                         ? "text-brand-700 dark:text-brand-300"
                         : "text-ink-soft hover:text-ink",
@@ -94,6 +99,7 @@ export function Navbar() {
                       />
                     ) : null}
                     {link.label}
+                    {isExternal ? <ArrowUpRight className="size-3.5" /> : null}
                   </a>
                 </li>
               );
@@ -155,16 +161,19 @@ export function Navbar() {
                     transition={{ delay: 0.05 + i * 0.04 }}
                   >
                     <a
-                      href={`#${link.id}`}
+                      href={link.href ?? `#${link.id}`}
+                      target={link.href ? "_blank" : undefined}
+                      rel={link.href ? "noreferrer noopener" : undefined}
                       onClick={() => setMenuOpen(false)}
                       className={cn(
-                        "block rounded-2xl px-4 py-3 text-base font-medium transition-colors",
-                        activeId === link.id
+                        "flex items-center gap-1.5 rounded-2xl px-4 py-3 text-base font-medium transition-colors",
+                        !link.href && activeId === link.id
                           ? "bg-brand-50 text-brand-700 dark:bg-brand-400/12 dark:text-brand-300"
                           : "text-ink-soft hover:bg-surface-muted hover:text-ink",
                       )}
                     >
                       {link.label}
+                      {link.href ? <ArrowUpRight className="size-4" /> : null}
                     </a>
                   </motion.li>
                 ))}
