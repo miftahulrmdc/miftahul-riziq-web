@@ -12,6 +12,9 @@
  * scripts run through cmd.exe, which does not understand `VAR=value cmd`.
  */
 import { spawnSync } from "node:child_process";
+import { assertDevServerStopped } from "./guard-dev-server.mjs";
+
+await assertDevServerStopped();
 
 const result = spawnSync("npx", ["next", "build"], {
   stdio: "inherit",
