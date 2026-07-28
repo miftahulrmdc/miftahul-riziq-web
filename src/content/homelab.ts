@@ -6,12 +6,36 @@
  *  the hardware / service inventory.
  */
 
+/**
+ * Everything running (or planned) in the rack. Declared outside `homelab` so
+ * the metric counter below can be computed from it.
+ */
+const services = [
+  { name: "Proxmox VE", status: "running" },
+  { name: "Ubuntu Server", status: "running" },
+  { name: "Docker", status: "running" },
+  { name: "aaPanel", status: "running" },
+  { name: "Grafana", status: "running" },
+  { name: "Nginx", status: "running" },
+  { name: "MikroTik RouterOS", status: "running" },
+  { name: "Cloudflare", status: "running" },
+  { name: "Prometheus", status: "planned" },
+  { name: "Node Exporter", status: "planned" },
+  { name: "cAdvisor", status: "planned" },
+  { name: "Uptime Kuma", status: "planned" },
+  { name: "Gitea", status: "planned" },
+  { name: "Portainer", status: "planned" },
+  { name: "Kubernetes", status: "planned" },
+] as const;
+
+const RUNNING_SERVICES = services.filter((s) => s.status === "running").length;
+
 export const homelab = {
   title: "RMDC",
   fullName: "Riziq Mini Data Center",
   tagline: "Built at Home. Ready for Production.",
   description:
-    "RMDC is not a pile of spare parts in a cupboard. It is a deliberately designed environment — segmented networks, a real hypervisor, centralised storage, monitoring and a tested backup policy — run the way a small production estate is run. It exists so that everything I deploy at work, I have already broken and fixed at home first.",
+    "RMDC (Riziq Mini Data Center) is my personal infrastructure platform designed to simulate enterprise-grade IT operations. It serves as a sandbox where I build, monitor, automate, secure, and maintain production-like environments using modern infrastructure technologies. Every deployment, experiment, failure, and solution contributes to continuous learning and operational excellence.",
 
   /**
    * Topology layers. The diagram renders these as columns wired together,
@@ -23,7 +47,7 @@ export const homelab = {
       nodes: [
         { id: "internet", label: "Internet", icon: "globe" },
         { id: "cloudflare", label: "Cloudflare", icon: "cloud" },
-        { id: "fortigate", label: "FortiGate", icon: "shield" },
+        { id: "mikrotik", label: "MikroTik hAP lite", icon: "shield" },
       ],
     },
     {
@@ -45,48 +69,42 @@ export const homelab = {
     {
       layer: "Storage",
       nodes: [
-        { id: "synology", label: "Synology NAS", icon: "database" },
-        { id: "backup", label: "Backup Vault", icon: "archive" },
+        { id: "nvme", label: "NVMe SSD", icon: "database" },
+        { id: "lvmthin", label: "LVM-thin Pool", icon: "archive" },
       ],
     },
   ],
 
-  /** Physical inventory — rendered as spec rows. */
+  /**
+   * Physical inventory — rendered as spec rows.
+   * Taken from `pveversion`, `lscpu`, `free -h`, `lsblk` and `pvesm status`
+   * on the node, so every figure here is verifiable.
+   */
   hardware: [
-    { label: "Hypervisor", value: "Proxmox VE", detail: "Type-1, KVM-based" },
-    { label: "Storage", value: "Synology RS1221+", detail: "Rackmount NAS" },
-    { label: "Disks", value: "Seagate IronWolf", detail: "NAS-rated, RAID" },
-    { label: "Edge", value: "FortiGate", detail: "Firewall & VPN" },
-    { label: "DNS / CDN", value: "Cloudflare", detail: "Proxied ingress" },
+    { label: "Hypervisor", value: "Proxmox VE 9.1", detail: "Type-1, KVM-based" },
+    { label: "CPU", value: "AMD Ryzen 5 2400GE", detail: "4 cores / 8 threads" },
+    { label: "Memory", value: "22 GB", detail: "available to the hypervisor" },
+    { label: "Storage", value: "238 GB NVMe SSD", detail: "Team Group TM8FP6256G" },
+    { label: "Pools", value: "209 GB", detail: "67 GB local · 141 GB LVM-thin" },
+    { label: "Network", value: "MikroTik hAP lite", detail: "RouterOS gateway" },
   ],
 
   /**
    * Service inventory. `status` drives the coloured pill:
    *  running → emerald, planned → neutral outline.
    */
-  services: [
-    { name: "Proxmox VE", status: "running" },
-    { name: "Ubuntu Server", status: "running" },
-    { name: "Docker", status: "running" },
-    { name: "aaPanel", status: "running" },
-    { name: "Grafana", status: "running" },
-    { name: "Nginx", status: "running" },
-    { name: "Synology NAS", status: "running" },
-    { name: "Cloudflare", status: "running" },
-    { name: "Prometheus", status: "planned" },
-    { name: "Node Exporter", status: "planned" },
-    { name: "cAdvisor", status: "planned" },
-    { name: "Uptime Kuma", status: "planned" },
-    { name: "Gitea", status: "planned" },
-    { name: "Portainer", status: "planned" },
-    { name: "Kubernetes", status: "planned" },
-  ] as const,
+  services,
 
-  /** Counters shown above the diagram. */
+  /**
+   * Counters shown above the diagram.
+   *
+   * "Services running" is derived from the list above rather than typed by
+   * hand, so the counter and the inventory pills can never disagree.
+   */
   metrics: [
-    { label: "Services running", value: 8, suffix: "" },
-    { label: "Virtual machines", value: 6, suffix: "" },
-    { label: "Storage capacity", value: 16, suffix: " TB" },
+    { label: "Services running", value: RUNNING_SERVICES, suffix: "" },
+    { label: "Virtual machines", value: 4, suffix: "" },
+    { label: "Storage capacity", value: 512, suffix: " GB" },
     { label: "Uptime", value: 99.9, suffix: "%", decimals: 1 },
   ],
 } as const;

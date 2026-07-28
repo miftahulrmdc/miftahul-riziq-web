@@ -3,9 +3,13 @@
  *  EXPERIENCE — rendered by the vertical timeline.
  * ============================================================================
  *
- *  Bullets are taken verbatim from the CV and translated to English.
- *  ⚠️  Employment dates were not present in the source PDF — see the `period`
- *  fields tagged TODO below.
+ *  Bullets are taken from the CV and translated to English.
+ *
+ *  `period` is a free-text display string. Month + year is the convention on a
+ *  CV; switch to exact dates here if you prefer.
+ *
+ *  Set `current: true` on a role to show the pulsing "Current" badge. Nothing
+ *  carries it right now — add it back when a new role starts.
  */
 
 export interface ExperienceItem {
@@ -30,11 +34,10 @@ export const experience: ExperienceItem[] = [
   {
     company: "Syntech Mitra Integrasi",
     role: "Infrastructure & Cloud Engineer",
-    period: "17 Desember 2025 - 24 Juli 2026",
+    period: "Dec 2025 — Jul 2026",
     location: "Bekasi, Indonesia",
     type: "Full-time",
     icon: "cloud",
-    current: true,
     summary:
       "Own the availability, security and performance of hybrid infrastructure spanning on-premise hardware and public cloud.",
     highlights: [
@@ -51,7 +54,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "IDX Solusi Teknologi Informasi",
     role: "Cloud & Managed Services",
-    period: "17 Oktober 2022 - 14 Desember 2025",
+    period: "Oct 2022 — Dec 2025",
     location: "Jakarta Selatan, Indonesia",
     type: "Full-time",
     icon: "server",
@@ -71,23 +74,21 @@ export const experience: ExperienceItem[] = [
   },
   {
     company: "Sultan Metal Forming Indonesia",
-    // TODO: the role title was not recoverable from the PDF (likely IT Support
-    // or General Affair). Correct this.
-    role: "Staff HR&GA",
-    period: "24 Februari 2020 — 29 Januari 2021",
+    role: "HR & GA Staff",
+    period: "Feb 2020 — Jan 2021",
     location: "Cikarang, Indonesia",
     type: "Full-time",
     icon: "wrench",
     summary:
-      "Melakukan dokumentasi serta perawatan terkait infrastruktur perusahaan",
+      "Documented and maintained company infrastructure and assets — the first role that pulled me toward IT.",
     highlights: [
-      "Memelihara dan merawat aset perusahaan.",
-      "Melakukan maintenance komputer perusahaan dan backup data perusahaan sesuai jadwal yang sudah di tentukan.",
-      "Melakukan troubleshooting perangkat keras maupun perangkat lunak.",
-      "Input data absensi karyawan.",
-      "Membuat laporan jadwal maintenance kendaraan operasional.",
-      "Membuat laporan berkala yang dapat dipertanggung jawabkan",
+      "Maintained and serviced company assets across the site.",
+      "Ran scheduled workstation maintenance and company data backups against a defined calendar.",
+      "Troubleshot hardware and software issues for staff.",
+      "Recorded employee attendance data.",
+      "Produced maintenance schedules and reports for operational vehicles.",
+      "Prepared accountable periodic reports for management.",
     ],
-    stack: ["Absensi", "Hardware", "Software", "Asset Management"],
+    stack: ["Asset Management", "Hardware", "Software", "Backup", "Reporting"],
   },
 ];

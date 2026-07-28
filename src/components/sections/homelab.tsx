@@ -121,7 +121,11 @@ export function Homelab() {
         </Reveal>
 
         {/* ---------- Hardware + services ---------- */}
-        <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        {/* items-start: let each card size to its own content. Stretching them
+            to a shared height left ~180px of dead space inside the service
+            card, which reads as a rendering fault rather than as breathing
+            room. Uneven bottoms are the lesser evil here. */}
+        <div className="mt-8 grid items-start gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal className="glass rounded-3xl p-6 sm:p-8">
             <h3 className="font-display text-lg font-bold">Hardware</h3>
             <dl className="mt-5 divide-y divide-[color:var(--color-line)]">
