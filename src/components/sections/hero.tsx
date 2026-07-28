@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowDown, Download, Mail, MapPin } from "lucide-react";
 import { profile } from "@/content/profile";
 import { useTypewriter } from "@/hooks/use-typewriter";
 import { Button } from "@/components/ui/button";
@@ -46,9 +46,14 @@ export function Hero() {
             Hi, I&rsquo;m
           </motion.p>
 
+          {/* Three typography knobs, in the order you are most likely to touch:
+                text-5xl / sm:text-6xl / lg:text-7xl → size at each breakpoint
+                leading-[1.05]                       → line height
+                tracking-[-0.02em]                   → letter spacing
+              Lower tracking = tighter letters. Lower leading = tighter lines. */}
           <motion.h1
             variants={fadeUp}
-            className="mt-1 text-5xl font-extrabold leading-[0.95] tracking-[-0.045em] sm:text-6xl lg:text-7xl"
+            className="mt-2 text-5xl font-extrabold leading-[1.05] tracking-[-0.02em] sm:text-6xl lg:text-7xl"
           >
             {profile.name}
           </motion.h1>
@@ -103,23 +108,6 @@ export function Hero() {
               </a>
             </Button>
 
-            <div className="flex items-center gap-2">
-              {[
-                { href: profile.socials.github, label: "GitHub", Icon: Github },
-                { href: profile.socials.linkedin, label: "LinkedIn", Icon: Linkedin },
-              ].map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  aria-label={label}
-                  className="glass grid size-12 place-items-center rounded-full text-ink-soft transition-all duration-300 hover:-translate-y-1 hover:text-brand-600 hover:shadow-[var(--shadow-glow)]"
-                >
-                  <Icon className="size-5" />
-                </a>
-              ))}
-            </div>
           </motion.div>
 
           {/* Stats */}
