@@ -28,7 +28,7 @@ export const about = {
     {
       title: "Reliability first",
       icon: "shield-check",
-      body: "Five years keeping production estates inside SLA — VMware clusters on a data centre floor, hybrid infrastructure today. Redundancy, monitoring, and restores that have actually been tested.",
+      body: "Four years keeping production estates inside SLA — VMware clusters on a data centre floor, hybrid infrastructure today. Redundancy, monitoring, and restores that have actually been tested.",
     },
     {
       title: "Security by default",
@@ -52,6 +52,6 @@ export const about = {
     { label: "Infrastructure Engineer", state: "current" },
     { label: "Cloud Engineer", state: "next" },
     { label: "DevOps Engineer", state: "future" },
-    { label: "Platform Engineer", state: "future" },
+    //{ label: "Platform Engineer", state: "future" },
   ],
 } as const;

@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import {
   BadgeCheck,
+  Box,
   Cloud,
   ExternalLink,
+  GraduationCap,
   Layers,
   Network,
   Shield,
@@ -26,16 +28,24 @@ const ICONS = {
   shield: Shield,
   network: Network,
   layers: Layers,
+  container: Box,
 } as const;
 
+// "Training" rather than "Certified" for completed courses — the wording is the
+// whole point of keeping the two statuses apart.
 const STATUS_LABEL: Record<CertStatus, string> = {
+  completed: "Training",
   earned: "Certified",
   "in-progress": "In progress",
   planned: "Planned",
 };
 
+/** Both of these represent something actually obtained. */
+const isObtained = (status: CertStatus) =>
+  status === "earned" || status === "completed";
+
 export function Certifications() {
-  const earned = certifications.filter((c) => c.status === "earned").length;
+  const obtained = certifications.filter((c) => isObtained(c.status)).length;
 
   return (
     <section className="section bg-surface-muted/40">
@@ -45,8 +55,8 @@ export function Certifications() {
           title="Credentials &"
           accent="roadmap"
           description={
-            earned > 0
-              ? "Verified credentials, plus what I'm studying for next."
+            obtained > 0
+              ? "Training completed so far, and the vendor certifications I'm working toward. Each card shows its real status."
               : "An honest view of where I'm heading. Nothing here is claimed until it's earned — each card shows its real status."
           }
         />
@@ -63,7 +73,9 @@ export function Certifications() {
 
 function CertCard({ cert, index }: { cert: Certification; index: number }) {
   const Icon = ICONS[cert.icon];
+  const obtained = isObtained(cert.status);
   const isEarned = cert.status === "earned";
+  const isCompleted = cert.status === "completed";
   const isActive = cert.status === "in-progress";
 
   return (
@@ -75,9 +87,9 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
       transition={{ delay: (index % 3) * 0.08 }}
       className={cn(
         "glass hover-lift group flex flex-col rounded-3xl p-6",
-        // Only earned credentials get the solid emerald edge — the visual
+        // Anything actually obtained gets the emerald edge — the visual
         // hierarchy has to match the honesty of the content.
-        isEarned && "ring-1 ring-brand-600/30",
+        obtained && "ring-1 ring-brand-600/30",
         cert.status === "planned" && "opacity-90",
       )}
     >
@@ -85,7 +97,7 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
         <span
           className={cn(
             "grid size-12 place-items-center rounded-2xl transition-colors duration-300",
-            isEarned
+            obtained
               ? "bg-brand-600 text-white"
               : "bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400",
           )}
@@ -97,12 +109,18 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
           className={cn(
             "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider",
             isEarned && "bg-brand-600 text-white",
+            // Training sits one notch below a vendor exam: emerald, but outlined
+            // rather than filled, so the two are never mistaken for each other.
+            isCompleted &&
+              "border border-brand-600/40 bg-brand-50 text-brand-700 dark:bg-brand-400/10 dark:text-brand-300",
             isActive &&
               "border border-brand-600/30 bg-brand-50 text-brand-700 dark:bg-brand-400/10 dark:text-brand-300",
             cert.status === "planned" && "border border-line text-ink-faint",
           )}
         >
-          {isEarned ? <BadgeCheck className="size-3" /> : <Target className="size-3" />}
+          {isEarned ? <BadgeCheck className="size-3" /> : null}
+          {isCompleted ? <GraduationCap className="size-3" /> : null}
+          {!obtained ? <Target className="size-3" /> : null}
           {STATUS_LABEL[cert.status]}
         </span>
       </header>
@@ -122,7 +140,7 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
       <footer className="mt-5 flex items-center justify-between border-t border-line pt-4">
         <span className="text-xs font-semibold text-ink-faint">{cert.issued}</span>
 
-        {isEarned && cert.credentialUrl ? (
+        {obtained && cert.credentialUrl ? (
           <a
             href={cert.credentialUrl}
             target="_blank"

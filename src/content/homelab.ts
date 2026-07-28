@@ -104,7 +104,7 @@ export const homelab = {
   metrics: [
     { label: "Services running", value: RUNNING_SERVICES, suffix: "" },
     { label: "Virtual machines", value: 4, suffix: "" },
-    { label: "Storage capacity", value: 512, suffix: " GB" },
+    { label: "Storage capacity", value: 209, suffix: " GB" },
     { label: "Uptime", value: 99.9, suffix: "%", decimals: 1 },
   ],
 } as const;

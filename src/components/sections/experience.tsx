@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { experience, type ExperienceItem } from "@/content/experience";
+import { fadeUp, VIEWPORT } from "@/lib/motion";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Building2, Calendar, Cloud, MapPin, Server, Wrench } from "lucide-react";
-import { experience, type ExperienceItem } from "@/content/experience";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { fadeUp, VIEWPORT } from "@/lib/motion";
+import { useRef } from "react";
 
 const ICONS = { server: Server, cloud: Cloud, wrench: Wrench } as const;
 
@@ -28,9 +28,9 @@ export function Experience() {
       <div className="container-page">
         <SectionHeading
           eyebrow="Experience"
-          title="Where I've"
-          accent="operated"
-          description="Five years across enterprise data centres, managed services and hybrid cloud infrastructure."
+          title="Professional"
+          accent="Experience"
+          description="A timeline of my professional journey, highlighting the roles, responsibilities, and technologies that have shaped my career as an Infrastructure & Cloud Engineer."
         />
 
         <div ref={timelineRef} className="relative mt-16">

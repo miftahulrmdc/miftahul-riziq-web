@@ -12,7 +12,7 @@ import {
 import { about } from "@/content/about";
 import { profile } from "@/content/profile";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { Reveal, RevealGroup } from "@/components/ui/reveal";
+import { RevealGroup } from "@/components/ui/reveal";
 import { fadeUp, slideInRight } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 

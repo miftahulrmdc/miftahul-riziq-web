@@ -3,69 +3,91 @@
  *  CERTIFICATIONS
  * ============================================================================
  *
- *  ⚠️  No certifications were listed on the source CV, so this is modelled as a
- *  ROADMAP rather than a wall of badges. Recruiters read "target Q3 2026" as
- *  ambition; they read a fabricated credential as a reason to end the process.
+ *  Four statuses, deliberately distinct:
  *
- *  When you earn one, move it to `status: "earned"`, fill in `issued` and
- *  `credentialUrl`, and it will render with the verified treatment automatically.
+ *    completed   — a training course finished, certificate issued by the
+ *                  training provider. Real and worth showing, but NOT a vendor
+ *                  certification, and the card says so.
+ *    earned      — a vendor exam passed (CCNA, AWS, CKA…). Gets the "Certified"
+ *                  label and a Verify link.
+ *    in-progress — actively studying for it.
+ *    planned     — on the roadmap, not started.
+ *
+ *  Keeping training and vendor exams apart matters: a recruiter who reads
+ *  "Certified" and then cannot verify it on Credly draws the worst conclusion.
+ *  Stated accurately, both are assets.
  */
 
-export type CertStatus = "earned" | "in-progress" | "planned";
+export type CertStatus = "completed" | "earned" | "in-progress" | "planned";
 
 export interface Certification {
   name: string;
   issuer: string;
   status: CertStatus;
-  /** Year earned, or the target window while unearned. */
+  /** Year obtained, or the target window while unobtained. */
   issued: string;
   description: string;
-  /** Verification link — only rendered when status is "earned". */
+  /** Verification link. Only rendered for `earned` or `completed`. */
   credentialUrl: string | null;
   /** Lucide icon name resolved in the Certifications component. */
-  icon: "cloud" | "terminal" | "shield" | "network" | "layers";
+  icon: "cloud" | "terminal" | "shield" | "network" | "layers" | "container";
 }
 
 export const certifications: Certification[] = [
+  // ------------------------------------------------- obtained, newest first
   {
-    name: "AWS Certified Solutions Architect — Associate",
-    issuer: "Amazon Web Services",
-    status: "in-progress",
-    issued: "Target 2026",
+    name: "Cloud Essential",
+    issuer: "INIXINDO",
+    status: "completed",
+    issued: "2024",
     description:
-      "Designing resilient, cost-aware architectures on AWS — VPC design, high availability across availability zones, and the shared responsibility model.",
+      "Foundational cloud training — service and deployment models, shared responsibility, and the cost and governance basics behind cloud adoption.",
+    // If the provider issues a verification link, or you host a scan of the
+    // certificate, put the URL here and a Verify button appears on the card.
     credentialUrl: null,
     icon: "cloud",
   },
   {
-    name: "Linux Foundation Certified Sysadmin (LFCS)",
-    issuer: "The Linux Foundation",
-    status: "in-progress",
-    issued: "Target 2026",
+    name: "VMware vSphere Admin",
+    issuer: "ID Networkers",
+    status: "completed",
+    issued: "2023",
     description:
-      "Hands-on Linux administration: storage and filesystems, systemd service management, networking, users and permissions.",
+      "Instructor-led training on vSphere administration — ESXi hosts, vCenter, virtual networking, storage and resource management. The same estate I was administering day to day at IDXSTI.",
     credentialUrl: null,
-    icon: "terminal",
+    icon: "layers",
   },
-  {
-    name: "Fortinet NSE 4 — Network Security Professional",
-    issuer: "Fortinet",
-    status: "planned",
-    issued: "Planned",
-    description:
-      "FortiGate firewall policy, VPN topologies, routing and security profiles — formalising skills already used day to day.",
-    credentialUrl: null,
-    icon: "shield",
-  },
+
+  // ----------------------------------------------------------------- roadmap
   {
     name: "Cisco Certified Network Associate (CCNA)",
     issuer: "Cisco",
     status: "planned",
     issued: "Planned",
     description:
-      "Routing and switching fundamentals, IP services and network access — the vendor-neutral grounding under every other network skill.",
+      "Routing and switching fundamentals, IP services, security basics and automation — the vendor-neutral grounding under every other network skill.",
     credentialUrl: null,
     icon: "network",
+  },
+  {
+    name: "AWS Certified Solutions Architect — Associate",
+    issuer: "Amazon Web Services",
+    status: "planned",
+    issued: "Planned",
+    description:
+      "Designing resilient, cost-aware architectures on AWS — VPC design, high availability across availability zones, and the shared responsibility model.",
+    credentialUrl: null,
+    icon: "cloud",
+  },
+  {
+    name: "Docker Certified Associate (DCA)",
+    issuer: "Mirantis",
+    status: "planned",
+    issued: "Planned",
+    description:
+      "Container images, networking, storage and orchestration — formalising the Docker work already running in RMDC.",
+    credentialUrl: null,
+    icon: "container",
   },
   {
     name: "Certified Kubernetes Administrator (CKA)",
@@ -73,18 +95,18 @@ export const certifications: Certification[] = [
     status: "planned",
     issued: "Planned",
     description:
-      "Cluster architecture, workload scheduling, networking and troubleshooting — the next step after Docker in the RMDC roadmap.",
+      "Cluster architecture, workload scheduling, networking and troubleshooting — the step after Docker in the RMDC roadmap.",
     credentialUrl: null,
     icon: "layers",
   },
   {
-    name: "HashiCorp Certified: Terraform Associate",
-    issuer: "HashiCorp",
+    name: "Cisco Certified Network Professional (CCNP)",
+    issuer: "Cisco",
     status: "planned",
     issued: "Planned",
     description:
-      "Infrastructure as Code — state management, modules and provisioning workflows, to replace click-ops with reviewable commits.",
+      "Advanced enterprise routing, switching and network design — taken after CCNA, which is its prerequisite in practice.",
     credentialUrl: null,
-    icon: "layers",
+    icon: "network",
   },
 ];

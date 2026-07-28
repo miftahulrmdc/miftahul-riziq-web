@@ -15,10 +15,9 @@ import {
   Terminal,
 } from "lucide-react";
 import { homelab } from "@/content/homelab";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { Counter } from "@/components/ui/counter";
 import { Reveal } from "@/components/ui/reveal";
-import { fadeUp, scaleIn, VIEWPORT } from "@/lib/motion";
+import { scaleIn, VIEWPORT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const NODE_ICONS = {
