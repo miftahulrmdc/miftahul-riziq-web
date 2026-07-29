@@ -1,8 +1,13 @@
-# Portfolio behind a Cloudflare Tunnel.
+# Portfolio container.
 #
-# No ports are published to the host and none are forwarded on the router.
-# cloudflared dials out to Cloudflare and traffic arrives through that
-# connection, so the site works behind CGNAT and exposes no inbound surface.
+# cloudflared is NOT run here — it already runs on the aaPanel VM, so a second
+# instance would be redundant. That VM reaches this container over the LAN, so
+# the port below has to be published; the tunnel then routes to it.
+#
+#   Internet → Cloudflare → tunnel (aaPanel VM) → this VM:8080 → nginx:80
+#
+# Nothing is forwarded on the MikroTik: port 8080 is reachable from the LAN
+# only, which is what the tunnel needs and no more.
 
 services:
   portfolio:
@@ -12,36 +17,16 @@ services:
     image: miftahul-portfolio:latest
     container_name: portfolio
     restart: unless-stopped
-    # `expose`, not `ports`: reachable from cloudflared on the internal network,
-    # unreachable from the LAN or the internet directly.
-    expose:
-      - "80"
-    networks:
-      - web
-    # Static files only — nothing needs to write to disk at runtime.
+
+    # host:container. Change the left number if 8080 is already taken on this
+    # VM — then point the tunnel route at the new one.
+    ports:
+      - "8080:80"
+
+    # Static files only; nothing needs to write to the image at runtime.
     read_only: true
     tmpfs:
       - /var/cache/nginx
       - /var/run
     security_opt:
       - no-new-privileges:true
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run
-    environment:
-      # Created in the Cloudflare Zero Trust dashboard. Store it in .env —
-      # never commit it: the token alone is enough to run your tunnel.
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN:?TUNNEL_TOKEN is not set — copy .env.example to .env and fill it in}
-    depends_on:
-      - portfolio
-    networks:
-      - web
-    security_opt:
-      - no-new-privileges:true
-
-networks:
-  web:
-    driver: bridge

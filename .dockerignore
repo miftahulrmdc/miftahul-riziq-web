@@ -7,7 +7,6 @@ out
 .gitignore
 .env
 .env.*
-!.env.example
 .vscode
 .claude
 README.md
