@@ -119,72 +119,52 @@ export function Homelab() {
           </div>
         </Reveal>
 
-        {/* ---------- Hardware + services ---------- */}
-        {/* items-start: let each card size to its own content. Stretching them
-            to a shared height left ~180px of dead space inside the service
-            card, which reads as a rendering fault rather than as breathing
-            room. Uneven bottoms are the lesser evil here. */}
-        <div className="mt-8 grid items-start gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal className="glass rounded-3xl p-6 sm:p-8">
-            <h3 className="font-display text-lg font-bold">Hardware</h3>
-            <dl className="mt-5 divide-y divide-[color:var(--color-line)]">
-              {homelab.hardware.map((row) => (
-                <div
-                  key={row.label}
-                  className="flex items-baseline justify-between gap-4 py-3"
+        {/* ---------- Service inventory ---------- */}
+        {/* The hardware spec card used to sit beside this one. It listed the
+            exact CPU, RAM, disk model and capacity of an internet-facing box —
+            more detail than a public page needs to give away. The data is
+            still in content/homelab.ts if it is ever wanted back. */}
+        <Reveal className="glass mt-8 rounded-3xl p-6 sm:p-8">
+          <div className="flex items-baseline justify-between gap-4">
+            <h3 className="font-display text-lg font-bold">Service inventory</h3>
+            <p className="text-xs text-ink-faint">
+              <span className="font-semibold text-brand-600 dark:text-brand-400">
+                {homelab.services.filter((s) => s.status === "running").length}
+              </span>{" "}
+              running ·{" "}
+              {homelab.services.filter((s) => s.status === "planned").length} planned
+            </p>
+          </div>
+
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {homelab.services.map((service) => {
+              const running = service.status === "running";
+              return (
+                <li
+                  key={service.name}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                    running
+                      ? "bg-brand-600 text-white"
+                      : "border border-dashed border-line text-ink-faint",
+                  )}
                 >
-                  <dt className="text-sm text-ink-faint">{row.label}</dt>
-                  <dd className="text-right">
-                    <span className="text-sm font-semibold">{row.value}</span>
-                    <span className="ml-2 text-xs text-ink-faint">{row.detail}</span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-
-          <Reveal className="glass rounded-3xl p-6 sm:p-8">
-            <div className="flex items-baseline justify-between gap-4">
-              <h3 className="font-display text-lg font-bold">Service inventory</h3>
-              <p className="text-xs text-ink-faint">
-                <span className="font-semibold text-brand-600 dark:text-brand-400">
-                  {homelab.services.filter((s) => s.status === "running").length}
-                </span>{" "}
-                running ·{" "}
-                {homelab.services.filter((s) => s.status === "planned").length} planned
-              </p>
-            </div>
-
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {homelab.services.map((service) => {
-                const running = service.status === "running";
-                return (
-                  <li
-                    key={service.name}
+                  <span
+                    aria-hidden
                     className={cn(
-                      "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
-                      running
-                        ? "bg-brand-600 text-white"
-                        : "border border-dashed border-line text-ink-faint",
+                      "size-1.5 rounded-full",
+                      running ? "bg-white" : "bg-ink-faint",
                     )}
-                  >
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "size-1.5 rounded-full",
-                        running ? "bg-white" : "bg-ink-faint",
-                      )}
-                    />
-                    {service.name}
-                    <span className="sr-only">
-                      {running ? " — running" : " — planned"}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
-        </div>
+                  />
+                  {service.name}
+                  <span className="sr-only">
+                    {running ? " — running" : " — planned"}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

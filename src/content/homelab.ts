@@ -76,9 +76,14 @@ export const homelab = {
   ],
 
   /**
-   * Physical inventory — rendered as spec rows.
-   * Taken from `pveversion`, `lscpu`, `free -h`, `lsblk` and `pvesm status`
-   * on the node, so every figure here is verifiable.
+   * Physical inventory.
+   *
+   * NOT RENDERED — the card was removed from the Homelab section because
+   * publishing the exact CPU, RAM and disk of an internet-facing machine gives
+   * away more than a public page needs to. Kept here so it can be restored
+   * without re-reading it off the node.
+   *
+   * Taken from `pveversion`, `lscpu`, `free -h`, `lsblk` and `pvesm status`.
    */
   hardware: [
     { label: "Hypervisor", value: "Proxmox VE 9.1", detail: "Type-1, KVM-based" },
