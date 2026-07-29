@@ -96,6 +96,9 @@ export const profile = {
 
 /**
  * Canonical origin used for metadata, sitemap and Open Graph tags.
- * TODO: point this at your real domain before deploying.
+ *
+ * Baked in at build time, not read at runtime — change it here and rebuild,
+ * or the deployed site advertises the wrong address. No trailing slash: Next
+ * appends paths to it.
  */
-export const SITE_URL = "https://miftahulriziq.com";
+export const SITE_URL = "https://miftahul-riziq.rmdc.my.id";

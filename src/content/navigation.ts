@@ -21,9 +21,11 @@ export const navLinks: NavLink[] = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
 
-  // TODO: when the RMDC site is live, add its URL here and this menu item
-  // starts pointing there instead of scrolling to the section below:
-  //   { id: "homelab", label: "Homelab", href: "https://rmdc.your-domain.com" },
+  // When the RMDC site is live at rmdc.my.id, uncomment the line below and
+  // delete the one after it — the item then links out instead of scrolling to
+  // the Homelab section. Left off until that site exists: a menu entry
+  // pointing at nothing is worse than one that scrolls.
+  //   { id: "homelab", label: "Homelab", href: "https://rmdc.my.id" },
   { id: "homelab", label: "Homelab" },
 
   { id: "contact", label: "Contact" },
