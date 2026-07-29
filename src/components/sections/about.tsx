@@ -36,7 +36,10 @@ export function About() {
           className="max-w-3xl"
         />
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+        {/* `[&>*]:min-w-0` for the same reason as the contact grid: a grid item
+            defaults to `min-width: auto` and will not shrink below its
+            min-content width, pushing the page wider than a phone screen. */}
+        <div className="mt-14 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 [&>*]:min-w-0">
           {/* ---------- Narrative ---------- */}
           <RevealGroup className="flex flex-col gap-6">
             {about.paragraphs.map((para, i) => (

@@ -77,9 +77,15 @@ export function Hero() {
             </span>
           </motion.div>
 
+          {/* Justified only from lg up. Justification distributes leftover
+              space across a line, so it needs roughly 45-75 characters to hide
+              that space. A phone column fits about 40, which forces the gaps
+              into visible rivers and hyphenates words mid-thought. Ragged right
+              is the correct setting at that width, not a compromise. */}
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg"
+            lang="en"
+            className="mt-6 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg lg:hyphens-auto lg:text-justify"
           >
             {profile.intro}
           </motion.p>
@@ -93,15 +99,20 @@ export function Hero() {
           </motion.div>
 
           {/* CTAs */}
-          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg">
+          {/* Full width and stacked on phones: two pills of different widths
+              left-aligned read as ragged. They sit side by side from sm up. */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+          >
+            <Button asChild size="lg" className="w-full sm:w-auto">
               <a href={profile.resumeUrl} download>
                 <Download />
                 Download Resume
               </a>
             </Button>
 
-            <Button asChild variant="outline" size="lg">
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
               <a href="#contact">
                 <Mail />
                 Contact Me
@@ -128,7 +139,10 @@ export function Hero() {
                       decimals={"decimals" in stat ? stat.decimals : 0}
                     />
                   </dd>
-                  <dt className="mt-1 text-xs font-medium text-ink-faint">
+                  {/* min-h keeps the row's baseline even on phones, where
+                      "Services self-hosted" wraps to two lines and the others
+                      do not. Released at sm, where all three fit on one line. */}
+                  <dt className="mt-1 min-h-8 text-xs font-medium leading-tight text-ink-faint sm:min-h-0">
                     {stat.label}
                   </dt>
                 </div>

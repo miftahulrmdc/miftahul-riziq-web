@@ -35,7 +35,9 @@ export function Footer() {
                 target={href.startsWith("mailto:") ? undefined : "_blank"}
                 rel="noreferrer noopener"
                 aria-label={label}
-                className="grid size-9 place-items-center rounded-lg border border-line bg-surface-muted text-ink-faint transition-colors duration-300 hover:border-brand-600/40 hover:bg-brand-50 hover:text-brand-700 dark:hover:bg-brand-400/10 dark:hover:text-brand-300"
+                // 44px on phones — the comfortable minimum for a thumb — and
+                // back to 36px from sm, where a mouse is doing the pointing.
+                className="grid size-11 place-items-center rounded-lg border border-line bg-surface-muted text-ink-faint transition-colors duration-300 hover:border-brand-600/40 hover:bg-brand-50 hover:text-brand-700 sm:size-9 dark:hover:bg-brand-400/10 dark:hover:text-brand-300"
               >
                 <Icon className="size-4" />
               </a>

@@ -114,6 +114,14 @@
     /* Sticky navbar is 4rem; keep anchored sections clear of it. */
     scroll-padding-top: 5.5rem;
     -webkit-text-size-adjust: 100%;
+
+    /* Entrance animations park elements off to the side (slideInRight starts
+       32px right of where it lands), which on a phone is enough to widen the
+       page and let it scroll sideways before those sections are ever reached.
+       Clipping at the root stops that. `clip` rather than `hidden` because
+       hidden would turn html into a scroll container and break the smooth
+       scrolling and scroll-padding above it. */
+    overflow-x: clip;
   }
 
   body {

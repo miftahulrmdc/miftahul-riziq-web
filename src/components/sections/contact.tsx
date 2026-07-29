@@ -30,7 +30,12 @@ export function Contact() {
           description="Open to Infrastructure, Cloud and DevOps roles. Happy to talk architecture either way."
         />
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+        {/* `[&>*]:min-w-0` — a grid item defaults to `min-width: auto`, which
+            means it refuses to shrink below its min-content width. The LinkedIn
+            URL in the details card does not wrap, so both columns were forced
+            ~53px wider than the phone screen and the whole page scrolled
+            sideways. */}
+        <div className="mt-16 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] [&>*]:min-w-0">
           <ContactDetails />
           <ContactForm />
         </div>
@@ -225,12 +230,16 @@ function ContactForm() {
 
         <label className="flex flex-col gap-2">
           <span className="text-sm font-medium">Message</span>
+          {/* `w-full min-w-0` is not cosmetic: a textarea carries an intrinsic
+              width from its `cols` default, and a flex item will not shrink
+              below that. Without this the form pushed the whole page ~33px
+              wider than a phone screen. */}
           <textarea
             name="message"
             rows={5}
             required
             placeholder="Tell me about the role, the team, and the infrastructure you're running."
-            className="resize-y rounded-2xl border border-line bg-surface/60 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-faint focus:border-brand-600/50"
+            className="w-full min-w-0 resize-y rounded-2xl border border-line bg-surface/60 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-faint focus:border-brand-600/50"
           />
         </label>
 
@@ -301,12 +310,14 @@ function Field({
   return (
     <motion.label variants={fadeUp} className="flex flex-col gap-2">
       <span className="text-sm font-medium">{label}</span>
+      {/* Same reason as the textarea: an input's default `size` gives it an
+          intrinsic width that a flex item refuses to shrink below. */}
       <input
         type={type}
         name={name}
         placeholder={placeholder}
         required={required}
-        className="h-12 rounded-2xl border border-line bg-surface/60 px-4 text-sm outline-none transition-colors placeholder:text-ink-faint focus:border-brand-600/50"
+        className="h-12 w-full min-w-0 rounded-2xl border border-line bg-surface/60 px-4 text-sm outline-none transition-colors placeholder:text-ink-faint focus:border-brand-600/50"
       />
     </motion.label>
   );
