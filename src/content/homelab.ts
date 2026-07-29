@@ -3,7 +3,7 @@
  *  RMDC — Riziq Mini Data Center
  * ============================================================================
  *  Content for the signature homelab section: the topology diagram nodes and
- *  the hardware / service inventory.
+ *  the service inventory.
  */
 
 /**
@@ -76,25 +76,6 @@ export const homelab = {
   ],
 
   /**
-   * Physical inventory.
-   *
-   * NOT RENDERED — the card was removed from the Homelab section because
-   * publishing the exact CPU, RAM and disk of an internet-facing machine gives
-   * away more than a public page needs to. Kept here so it can be restored
-   * without re-reading it off the node.
-   *
-   * Taken from `pveversion`, `lscpu`, `free -h`, `lsblk` and `pvesm status`.
-   */
-  hardware: [
-    { label: "Hypervisor", value: "Proxmox VE 9.1", detail: "Type-1, KVM-based" },
-    { label: "CPU", value: "AMD Ryzen 5 2400GE", detail: "4 cores / 8 threads" },
-    { label: "Memory", value: "22 GB", detail: "available to the hypervisor" },
-    { label: "Storage", value: "238 GB NVMe SSD", detail: "Team Group TM8FP6256G" },
-    { label: "Pools", value: "209 GB", detail: "67 GB local · 141 GB LVM-thin" },
-    { label: "Network", value: "MikroTik hAP lite", detail: "RouterOS gateway" },
-  ],
-
-  /**
    * Service inventory. `status` drives the coloured pill:
    *  running → emerald, planned → neutral outline.
    */
@@ -109,7 +90,7 @@ export const homelab = {
   metrics: [
     { label: "Services running", value: RUNNING_SERVICES, suffix: "" },
     { label: "Virtual machines", value: 4, suffix: "" },
-    { label: "Storage capacity", value: 209, suffix: " GB" },
+    { label: "Storage capacity", value: 1, suffix: " TB" },
     { label: "Uptime", value: 99.9, suffix: "%", decimals: 1 },
   ],
 } as const;
