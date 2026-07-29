@@ -1,0 +1,47 @@
+# Portfolio behind a Cloudflare Tunnel.
+#
+# No ports are published to the host and none are forwarded on the router.
+# cloudflared dials out to Cloudflare and traffic arrives through that
+# connection, so the site works behind CGNAT and exposes no inbound surface.
+
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: miftahul-portfolio:latest
+    container_name: portfolio
+    restart: unless-stopped
+    # `expose`, not `ports`: reachable from cloudflared on the internal network,
+    # unreachable from the LAN or the internet directly.
+    expose:
+      - "80"
+    networks:
+      - web
+    # Static files only — nothing needs to write to disk at runtime.
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      # Created in the Cloudflare Zero Trust dashboard. Store it in .env —
+      # never commit it: the token alone is enough to run your tunnel.
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN:?TUNNEL_TOKEN is not set — copy .env.example to .env and fill it in}
+    depends_on:
+      - portfolio
+    networks:
+      - web
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  web:
+    driver: bridge
