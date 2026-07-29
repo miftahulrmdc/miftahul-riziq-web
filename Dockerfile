@@ -40,6 +40,6 @@ EXPOSE 80
 # Fail the container's health check if nginx stops serving, so Docker (or
 # Portainer) restarts it rather than leaving a dead site up.
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+  CMD wget --quiet --tries=1 --spider http://localhost/healthz || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
