@@ -101,7 +101,10 @@ export const profile = {
     institution: "Universitas Bina Insani",
     degree: "S1 — Teknik Informatika",
     location: "Bekasi",
-    period: "2021", // TODO
+    // The bare year "2021" could not say whether it was enrolment or
+    // graduation, and a reader should never have to guess at a qualification.
+    // Swap for a range ("2017 — 2021") if you want the enrolment year shown.
+    period: "Graduated 2021",
   },
 } as const;
 

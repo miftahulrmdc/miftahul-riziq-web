@@ -11,26 +11,27 @@ npm run typecheck
 
 ---
 
-## ⚠️ Before you publish — edit these
+## Content status
 
-Every value below is a placeholder. They are **all** in `src/content/`, so you
-never need to touch a component to fix them.
+Contact details, work history and education have been checked against the real
+CV and are live. Phone, email and the contact form were verified end to end
+against the deployed domain — a message sent from the published site reaches the
+Web3Forms inbox.
 
-| # | File | What to change |
+What remains is judgement, not extraction error. Everything lives in
+`src/content/`, so no component needs touching.
+
+| # | File | What to review |
 |---|------|----------------|
-| 1 | `src/content/profile.ts` | `phone` — the source PDF's embedded font had **no glyph for the digit `4`**, so every 4 in your number was silently dropped during extraction. Retype it. |
-| 2 | `src/content/profile.ts` | `email` — still set to `miftahulriiziiq@gmail.com`, which is how the CV decoded (doubled `i`s, likely a typo in the PDF itself). Confirm which address should be public. |
-| 3 | `src/content/profile.ts` | `socials.linkedin` / `socials.rmdc`. `socials.github` is no longer rendered anywhere — the RMDC link took its slot in both the contact section and the footer — but it still feeds the JSON-LD `sameAs` in `layout.tsx` |
-| 4 | `src/content/profile.ts` | `education.period` — graduation year |
-| 5 | `src/content/profile.ts` | `SITE_URL` — your real domain (drives canonical URL, Open Graph, sitemap) |
-| 6 | `src/content/profile.ts` | `stats` — "4+ years in IT", "5 services self-hosted", "99.9% homelab uptime" are estimates |
-| 7 | `src/content/experience.ts` | `period` for **Syntech** and **IDX** — absent from the CV |
-| 8 | `src/content/experience.ts` | `role` for **Sultan Metal Forming** — not recoverable from the PDF |
-| 9 | `src/content/projects.ts` | `repo` / `demo` URLs. `null` hides the button — better than a dead link. Note the Projects and Skills sections are not currently rendered (see `app/page.tsx`), so this only matters if you add them back |
-| 10 | `src/content/certifications.ts` | Two entries are `completed` (training), the rest `planned`. When you earn a vendor exam, set `status: "earned"` + `credentialUrl` and it renders with the verified treatment automatically |
-| 11 | `src/content/skills.ts` | `level` values are self-assessed estimates |
+| 1 | `src/content/profile.ts` | `stats` — "4+ years in IT", "5 services self-hosted", "99.9% homelab uptime" are self-assessed. Be ready to defend each in an interview |
+| 2 | `src/content/skills.ts` | `level` values are self-assessed estimates |
+| 3 | `src/content/profile.ts` | `education.period` reads "Graduated 2021". Change to a range such as "2017 — 2021" if you would rather show the enrolment year |
+| 4 | `src/content/profile.ts` | `socials.github` no longer renders anywhere — the RMDC link took its slot in both the contact section and the footer — but it still feeds the JSON-LD `sameAs` in `layout.tsx` |
+| 5 | `src/content/certifications.ts` | Two entries are `completed` (training), the rest `planned`. When you earn a vendor exam, set `status: "earned"` + `credentialUrl` and it renders with the verified treatment automatically |
+| 6 | `src/content/projects.ts` | `repo` / `demo` URLs. `null` hides the button — better than a dead link. Note the Projects and Skills sections are not currently rendered (see `app/page.tsx`), so this only matters if you add them back |
+| 7 | `src/content/experience.ts` | No role carries `current: true`, so no "Current" badge renders. That is correct while between roles — set it on the newest entry when a new one starts |
 
-Search the repo for `TODO` to find them all.
+Search the repo for `TODO` to find anything still marked.
 
 **Resume:** your CV was copied to `public/resume.pdf`, so the download button
 already works. Replace that file to update it.
@@ -93,11 +94,15 @@ To rebrand, change the `--color-brand-*` values in `@theme` — nothing else.
   error and a fallback address — a form that silently drops a recruiter's
   message is worse than having no form at all.
 
-  > ⚠️ The key is registered against the domain `localhost`. Add the real
-  > domain in the Web3Forms dashboard before going live, or every submission
-  > from the deployed site is rejected. The key itself is public by design: it
-  > ships in the client bundle, only identifies the destination inbox, and
-  > grants no account access.
+  The key is public by design: it ships in the client bundle, only identifies
+  the destination inbox, and grants no account access. Verified working from the
+  deployed domain.
+
+  > If sends start failing with `hCaptcha Token is mandatory for this form`,
+  > hCaptcha has been switched on in the Web3Forms dashboard. This form does not
+  > send a captcha token — it relies on the `botcheck` honeypot instead, which
+  > keeps third-party scripts off the page. Turn hCaptcha back off, or add the
+  > widget and pass `h-captcha-response` in the payload.
 - **Tech icons are original simplified marks**, not official brand logos — they
   inherit `currentColor` so they theme correctly, and avoid redistributing
   trademarked artwork.
