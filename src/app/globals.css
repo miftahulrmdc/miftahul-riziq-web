@@ -61,7 +61,11 @@
   --color-surface-raised: #ffffff;
   --color-ink: #111827;
   --color-ink-soft: #475569;
-  --color-ink-faint: #94a3b8;
+  /* Was #94a3b8, which measured 2.56:1 on white — well under the 4.5:1 that
+     WCAG AA asks of normal text, and this token carries every small label on
+     the page. #64748b reads as the same tier of muted grey at 4.76:1. The dark
+     theme's equivalent below already passed, so only this side moved. */
+  --color-ink-faint: #64748b;
   --color-line: #e2e8f0;
   --color-line-soft: #f1f5f9;
 
@@ -80,7 +84,10 @@
   --color-surface-raised: #0e1a16;
   --color-ink: #ecfdf5;
   --color-ink-soft: #a7bdb4;
-  --color-ink-faint: #64807a;
+  /* Was #64807a. That clears 4.5:1 against the page background (4.59) but not
+     against a glass card composited over it (4.34) — and the glass card is
+     where nearly every faint label actually sits. #6a8880 gives 4.82 there. */
+  --color-ink-faint: #6a8880;
   --color-line: rgb(255 255 255 / 0.09);
   --color-line-soft: rgb(255 255 255 / 0.05);
 
@@ -144,8 +151,14 @@
     text-wrap: balance;
   }
 
-  p {
-    text-wrap: pretty;
+  /* `pretty` reflows the last few lines to avoid an orphan. That is a win on a
+     wide column, but on a phone it steals words from the middle of the
+     paragraph and leaves a stub line there instead — so it only applies once
+     the column is wide enough to absorb the reflow. */
+  @media (min-width: 640px) {
+    p {
+      text-wrap: pretty;
+    }
   }
 
   ::selection {

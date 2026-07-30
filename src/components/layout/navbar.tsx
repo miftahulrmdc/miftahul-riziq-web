@@ -61,7 +61,7 @@ export function Navbar() {
             className="group flex items-center gap-2.5"
             aria-label={`${profile.name} — home`}
           >
-            <span className="grid size-10 place-items-center rounded-xl bg-brand-600 font-display text-sm font-extrabold tracking-tight text-white shadow-[0_6px_16px_-6px_rgb(22_163_74/0.7)] transition-transform duration-300 group-hover:scale-105">
+            <span className="grid size-10 place-items-center rounded-xl bg-brand-700 font-display text-sm font-extrabold tracking-tight text-white shadow-[0_6px_16px_-6px_rgb(22_163_74/0.7)] transition-transform duration-300 group-hover:scale-105">
               {profile.initials}
             </span>
             <span className="hidden flex-col leading-none sm:flex">
@@ -122,7 +122,7 @@ export function Navbar() {
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              className="grid size-10 place-items-center rounded-full border border-line bg-surface/60 text-ink-soft backdrop-blur transition-colors hover:text-brand-600 lg:hidden"
+              className="grid size-10 place-items-center rounded-full border border-line bg-surface/60 text-ink-soft backdrop-blur transition-colors hover:text-brand-700 lg:hidden"
             >
               {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>

@@ -78,6 +78,17 @@ export const profile = {
     // TODO: replace with your real profile URLs.
     github: "https://github.com/miftahulrmdc",
     linkedin: "https://www.linkedin.com/in/miftahul-riziq-b10544230/",
+
+    /**
+     * The lab's own site — same apex this CV is served from. Shown in the
+     * contact section above the location card.
+     *
+     * Deliberately live before the site is: it is the one link a reviewer
+     * clicks expecting to see the infrastructure, so it should not 404 for
+     * long. Point the DNS at something — even a holding page listing the
+     * stack — rather than leaving it dead.
+     */
+    rmdc: "https://rmdc.my.id",
   },
 
   /** Drop the real PDF at `public/resume.pdf` to make this link live. */

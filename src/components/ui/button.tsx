@@ -10,8 +10,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         /** Primary emerald fill — reserve for the single most important action. */
+        // The fill is brand-700, not 600: white on #16a34a measured 3.3:1,
+        // under the 4.5:1 WCAG AA wants for button text. #15803d gives 5.02:1.
+        // Hover moves to 800 so the state change stays visible.
         primary:
-          "bg-brand-600 text-white shadow-[0_8px_24px_-8px_rgb(22_163_74/0.6)] hover:bg-brand-700 hover:shadow-[0_12px_32px_-8px_rgb(22_163_74/0.7)] hover:-translate-y-0.5",
+          "bg-brand-700 text-white shadow-[0_8px_24px_-8px_rgb(22_163_74/0.6)] hover:bg-brand-800 hover:shadow-[0_12px_32px_-8px_rgb(22_163_74/0.7)] hover:-translate-y-0.5",
         /** Bordered, low-emphasis companion to primary. */
         outline:
           "border border-line bg-surface/60 text-ink backdrop-blur hover:border-brand-600/40 hover:bg-brand-50 hover:text-brand-700 hover:-translate-y-0.5 dark:hover:bg-brand-400/10 dark:hover:text-brand-300",

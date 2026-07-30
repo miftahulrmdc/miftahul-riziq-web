@@ -48,7 +48,7 @@ export function Certifications() {
   const obtained = certifications.filter((c) => isObtained(c.status)).length;
 
   return (
-    <section className="section bg-surface-muted/40">
+    <section id="certifications" className="section bg-surface-muted/40">
       <div className="container-page">
         <SectionHeading
           eyebrow="Certifications"
@@ -98,8 +98,8 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
           className={cn(
             "grid size-12 place-items-center rounded-2xl transition-colors duration-300",
             obtained
-              ? "bg-brand-600 text-white"
-              : "bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400",
+              ? "bg-brand-700 text-white"
+              : "bg-brand-50 text-brand-700 group-hover:bg-brand-700 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400",
           )}
         >
           <Icon className="size-5" />
@@ -108,7 +108,7 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
         <span
           className={cn(
             "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider",
-            isEarned && "bg-brand-600 text-white",
+            isEarned && "bg-brand-700 text-white",
             // Training sits one notch below a vendor exam: emerald, but outlined
             // rather than filled, so the two are never mistaken for each other.
             isCompleted &&

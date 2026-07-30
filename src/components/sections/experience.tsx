@@ -73,7 +73,7 @@ function TimelineCard({ item, index }: { item: ExperienceItem; index: number }) 
         aria-hidden
         className="absolute left-0 top-6 hidden size-10 place-items-center rounded-full border border-line bg-surface shadow-[var(--shadow-soft)] sm:grid"
       >
-        <Icon className="size-4 text-brand-600 dark:text-brand-400" />
+        <Icon className="size-4 text-brand-700 dark:text-brand-400" />
         {item.current ? (
           <span className="absolute inset-0 rounded-full border-2 border-brand-500/50 [animation:pulse-ring_2.4s_ease-out_infinite]" />
         ) : null}
@@ -87,7 +87,7 @@ function TimelineCard({ item, index }: { item: ExperienceItem; index: number }) 
                 {item.role}
               </h3>
               {item.current ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                   <span className="size-1.5 rounded-full bg-white" />
                   Current
                 </span>

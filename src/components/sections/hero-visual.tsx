@@ -79,7 +79,7 @@ export function HeroVisual() {
                   transition={{ delay: 0.5 + i * 0.09, duration: 0.5 }}
                   className="flex items-center gap-2.5 rounded-xl border border-line bg-surface-raised/70 px-2.5 py-2.5"
                 >
-                  <unit.Icon className="size-3.5 shrink-0 text-brand-600 dark:text-brand-400" />
+                  <unit.Icon className="size-3.5 shrink-0 text-brand-700 dark:text-brand-400" />
                   <span className="flex-1 truncate text-[10px] font-semibold text-ink-soft">
                     {unit.label}
                   </span>
@@ -139,7 +139,7 @@ export function HeroVisual() {
               }}
               className="glass flex items-center gap-2 rounded-2xl px-3.5 py-2.5 shadow-[var(--shadow-soft)]"
             >
-              <TechIcon slug={card.slug} className="size-4 text-brand-600 dark:text-brand-400" />
+              <TechIcon slug={card.slug} className="size-4 text-brand-700 dark:text-brand-400" />
               <span className="text-[11px] font-semibold text-ink">{card.label}</span>
             </motion.div>
           </motion.div>

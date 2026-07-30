@@ -47,7 +47,9 @@ export function About() {
                 key={i}
                 variants={fadeUp}
                 className={cn(
-                  "leading-relaxed text-ink-soft",
+                  // `max-w-[62ch]` caps the measure: past roughly 75 characters
+                  // the eye loses the start of the next line.
+                  "max-w-[62ch] leading-relaxed text-ink-soft",
                   // Lead paragraph gets slightly more weight and size.
                   i === 0 && "text-lg text-ink",
                 )}
@@ -61,7 +63,7 @@ export function About() {
               variants={fadeUp}
               className="glass mt-2 flex items-start gap-4 rounded-2xl p-5"
             >
-              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-400/10 dark:text-brand-400">
+              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-400/10 dark:text-brand-400">
                 <GraduationCap className="size-5" />
               </span>
               <div>
@@ -89,7 +91,7 @@ export function About() {
                       className={cn(
                         "rounded-full px-3.5 py-1.5 text-xs font-semibold",
                         step.state === "current"
-                          ? "bg-brand-600 text-white shadow-[0_6px_16px_-6px_rgb(22_163_74/0.7)]"
+                          ? "bg-brand-700 text-white shadow-[0_6px_16px_-6px_rgb(22_163_74/0.7)]"
                           : step.state === "next"
                             ? "border border-brand-600/30 bg-brand-50 text-brand-700 dark:bg-brand-400/10 dark:text-brand-300"
                             : "border border-line text-ink-faint",
@@ -116,7 +118,7 @@ export function About() {
                   variants={slideInRight}
                   className="glass hover-lift group rounded-2xl p-5"
                 >
-                  <span className="mb-4 grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
+                  <span className="mb-4 grid size-11 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors duration-300 group-hover:bg-brand-700 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="font-display text-base font-semibold">

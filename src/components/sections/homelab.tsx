@@ -90,7 +90,7 @@ export function Homelab() {
               variants={scaleIn}
               className="glass rounded-2xl p-5 text-center"
             >
-              <dd className="font-display text-3xl font-bold text-brand-600 dark:text-brand-400">
+              <dd className="font-display text-3xl font-bold text-brand-700 dark:text-brand-400">
                 <Counter
                   value={metric.value}
                   suffix={metric.suffix}
@@ -128,7 +128,7 @@ export function Homelab() {
           <div className="flex items-baseline justify-between gap-4">
             <h3 className="font-display text-lg font-bold">Service inventory</h3>
             <p className="text-xs text-ink-faint">
-              <span className="font-semibold text-brand-600 dark:text-brand-400">
+              <span className="font-semibold text-brand-700 dark:text-brand-400">
                 {homelab.services.filter((s) => s.status === "running").length}
               </span>{" "}
               running ·{" "}
@@ -145,7 +145,7 @@ export function Homelab() {
                   className={cn(
                     "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
                     running
-                      ? "bg-brand-600 text-white"
+                      ? "bg-brand-700 text-white"
                       : "border border-dashed border-line text-ink-faint",
                   )}
                 >
@@ -226,7 +226,7 @@ function TopologyDiagram() {
                   whileHover={{ y: -4 }}
                   className="group relative flex items-center gap-3 rounded-2xl border border-line bg-surface-raised/80 px-4 py-3 backdrop-blur transition-colors hover:border-brand-600/40"
                 >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors duration-300 group-hover:bg-brand-700 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
                     <Icon className="size-4" />
                   </span>
                   <span className="truncate text-sm font-semibold">{node.label}</span>

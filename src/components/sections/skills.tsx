@@ -49,7 +49,7 @@ function SkillCard({ group, index }: { group: SkillGroup; index: number }) {
       className="glass hover-lift group flex flex-col rounded-3xl p-6"
     >
       <header className="flex items-center gap-3.5">
-        <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
+        <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-700 transition-colors duration-300 group-hover:bg-brand-700 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
           <Icon className="size-5" />
         </span>
         <div className="min-w-0">

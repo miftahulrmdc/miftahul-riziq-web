@@ -81,7 +81,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <Icon
           className={cn(
             "relative size-12 transition-transform duration-500 group-hover:scale-110",
-            project.featured ? "text-white/90" : "text-brand-600 dark:text-brand-400",
+            project.featured ? "text-white/90" : "text-brand-700 dark:text-brand-400",
           )}
         />
 

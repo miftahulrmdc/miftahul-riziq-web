@@ -8,7 +8,7 @@ import { scaleIn, VIEWPORT } from "@/lib/motion";
 
 export function TechStack() {
   return (
-    <section className="section">
+    <section id="stack" className="section">
       <div className="container-page">
         <SectionHeading
           eyebrow="Tech Stack"
@@ -29,7 +29,7 @@ export function TechStack() {
               <div className="glass hover-lift group flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl p-3">
                 <TechIcon
                   slug={tech.slug}
-                  className="size-8 text-ink-soft transition-all duration-300 group-hover:scale-110 group-hover:text-brand-600 dark:group-hover:text-brand-400"
+                  className="size-8 text-ink-soft transition-all duration-300 group-hover:scale-110 group-hover:text-brand-700 dark:group-hover:text-brand-400"
                 />
                 <span className="text-center text-[11px] font-semibold text-ink-soft transition-colors group-hover:text-ink">
                   {tech.name}

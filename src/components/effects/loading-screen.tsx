@@ -82,7 +82,7 @@ export function LoadingScreen() {
             {/* Indeterminate progress sliver */}
             <div className="h-0.5 w-40 overflow-hidden rounded-full bg-line">
               <motion.div
-                className="h-full w-full rounded-full bg-brand-600"
+                className="h-full w-full rounded-full bg-brand-700"
                 initial={{ x: "-100%" }}
                 animate={{ x: "0%" }}
                 transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail, Server } from "lucide-react";
 import { profile } from "@/content/profile";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 
@@ -13,11 +13,15 @@ import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 export function Footer() {
   const year = new Date().getFullYear();
 
+  // Same order and the same swap as the contact section, so the two lists never
+  // contradict each other: the lab site replaced GitHub, and takes the server
+  // icon rather than a globe — RMDC is infrastructure, not a brochure. GitHub
+  // now survives only in the JSON-LD `sameAs` in layout.tsx.
   const socials = [
-    { href: profile.socials.linkedin, label: "LinkedIn", Icon: Linkedin },
-    { href: profile.socials.github, label: "GitHub", Icon: Github },
-    { href: profile.whatsapp, label: "WhatsApp", Icon: WhatsAppIcon },
     { href: `mailto:${profile.email}`, label: "Email", Icon: Mail },
+    { href: profile.whatsapp, label: "WhatsApp", Icon: WhatsAppIcon },
+    { href: profile.socials.linkedin, label: "LinkedIn", Icon: Linkedin },
+    { href: profile.socials.rmdc, label: "RMDC Lab", Icon: Server },
   ];
 
   return (

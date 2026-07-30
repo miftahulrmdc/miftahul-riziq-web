@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 import {
   AlertCircle,
   CheckCircle2,
-  Github,
   Linkedin,
   Loader2,
   Mail,
   MapPin,
   Send,
+  Server,
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { profile } from "@/content/profile";
@@ -59,16 +59,25 @@ function ContactDetails() {
       Icon: WhatsAppIcon,
     },
     {
-      label: "GitHub",
-      value: profile.socials.github.replace("https://", ""),
-      href: profile.socials.github,
-      Icon: Github,
-    },
-    {
       label: "LinkedIn",
-      value: profile.socials.linkedin.replace("https://", ""),
+      // The full URL overran its card by 53px on a 390px screen and was clipped
+      // mid-slug, which reads as broken rather than abbreviated. The label
+      // already names the platform, so the host adds nothing — show the profile
+      // path and let the href carry the rest.
+      value: profile.socials.linkedin
+        .replace(/^https?:\/\/(www\.)?linkedin\.com\//, "")
+        .replace(/\/$/, ""),
       href: profile.socials.linkedin,
       Icon: Linkedin,
+    },
+    {
+      // The lab itself, sat directly above the location card — the last thing
+      // read before the form, and the one link that shows the work rather than
+      // describing it. It replaced GitHub here and in the footer.
+      label: "RMDC Lab",
+      value: profile.socials.rmdc.replace("https://", ""),
+      href: profile.socials.rmdc,
+      Icon: Server,
     },
   ];
 
@@ -93,7 +102,7 @@ function ContactDetails() {
           rel="noreferrer noopener"
           className="glass hover-lift group flex items-center gap-4 rounded-2xl p-4"
         >
-          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
+          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors duration-300 group-hover:bg-brand-700 group-hover:text-white dark:bg-brand-400/10 dark:text-brand-400">
             <Icon className="size-5" />
           </span>
           <span className="min-w-0">
@@ -112,7 +121,7 @@ function ContactDetails() {
       >
         <div className="bg-grid absolute inset-0 opacity-70" />
         <div className="relative flex items-center gap-4">
-          <span className="relative grid size-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-white">
+          <span className="relative grid size-11 shrink-0 place-items-center rounded-xl bg-brand-700 text-white">
             <MapPin className="size-5" />
             <span className="absolute inset-0 rounded-xl border-2 border-brand-500/50 [animation:pulse-ring_2.6s_ease-out_infinite]" />
           </span>

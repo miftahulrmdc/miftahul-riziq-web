@@ -132,7 +132,7 @@ export function Hero() {
                     the number reads large above its caption, without repeating
                     the label for screen readers. */}
                 <div className="flex flex-col">
-                  <dd className="font-display text-3xl font-bold text-brand-600 dark:text-brand-400">
+                  <dd className="font-display text-3xl font-bold text-brand-700 dark:text-brand-400">
                     <Counter
                       value={stat.value}
                       suffix={stat.suffix}
@@ -169,7 +169,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-ink-faint transition-colors hover:text-brand-600 sm:flex"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-ink-faint transition-colors hover:text-brand-700 sm:flex"
       >
         <span className="text-[10px] font-semibold uppercase tracking-[0.24em]">
           Scroll
