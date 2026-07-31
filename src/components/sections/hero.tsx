@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Mail, MapPin } from "lucide-react";
+import { ArrowDown, Linkedin, Mail, MapPin } from "lucide-react";
 import { profile } from "@/content/profile";
 import { useTypewriter } from "@/hooks/use-typewriter";
 import { Button } from "@/components/ui/button";
@@ -105,17 +105,22 @@ export function Hero() {
             variants={fadeUp}
             className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
           >
+            {/* Contact is the primary action now that the CV is not published. */}
             <Button asChild size="lg" className="w-full sm:w-auto">
-              <a href={profile.resumeUrl} download>
-                <Download />
-                Download Resume
+              <a href="#contact">
+                <Mail />
+                Contact Me
               </a>
             </Button>
 
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <a href="#contact">
-                <Mail />
-                Contact Me
+              <a
+                href={profile.socials.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <Linkedin />
+                LinkedIn
               </a>
             </Button>
 

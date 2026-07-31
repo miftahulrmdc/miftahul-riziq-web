@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Download, Menu, X } from "lucide-react";
+import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import { navLinks } from "@/content/navigation";
 import { profile } from "@/content/profile";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
@@ -110,10 +110,13 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
 
+            {/* The CV is not published. This keeps a single clear call to
+                action in the navbar without putting the document itself on the
+                open internet — anyone who wants it can ask. */}
             <Button asChild size="sm" className="hidden sm:inline-flex">
-              <a href={profile.resumeUrl} download>
-                <Download />
-                Resume
+              <a href="#contact">
+                <Mail />
+                Get in Touch
               </a>
             </Button>
 
@@ -181,9 +184,9 @@ export function Navbar() {
 
               <div className="mt-2 border-t border-line p-2 pt-3">
                 <Button asChild className="w-full">
-                  <a href={profile.resumeUrl} download>
-                    <Download />
-                    Download Resume
+                  <a href="#contact" onClick={() => setMenuOpen(false)}>
+                    <Mail />
+                    Get in Touch
                   </a>
                 </Button>
               </div>

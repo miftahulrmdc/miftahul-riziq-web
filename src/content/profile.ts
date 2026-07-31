@@ -91,8 +91,12 @@ export const profile = {
     rmdc: "https://rmdc.my.id",
   },
 
-  /** Drop the real PDF at `public/resume.pdf` to make this link live. */
-  resumeUrl: "/resume.pdf",
+  /*
+   * There is deliberately no `resumeUrl`. The CV is not published: a file in
+   * public/ is downloadable by anyone who guesses the path, linked or not.
+   * Recruiters reach the contact form instead, so the document is sent
+   * deliberately rather than left on the open internet.
+   */
 
   /** Small print in the footer, after the copyright line. */
   footerNote: "Built with Next.js & Tailwind CSS.",
