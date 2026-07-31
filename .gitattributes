@@ -1,0 +1,23 @@
+# Line endings, decided once and applied everywhere.
+#
+# Without this, each machine's core.autocrlf setting decides for itself. On
+# Windows that means Git rewrites every file to CRLF on checkout and warns about
+# it on every commit, while the Linux box that actually builds the image checks
+# out LF. Same repository, two different working trees.
+#
+# LF is the right answer here: the Docker build, nginx and every shell script
+# run on Linux.
+* text=auto eol=lf
+
+# Shell scripts must keep LF or the shebang line breaks inside the container.
+*.sh text eol=lf
+
+# Binary files are never converted — doing so corrupts them.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary

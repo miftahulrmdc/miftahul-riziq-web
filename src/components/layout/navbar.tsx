@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navLinks } from "@/content/navigation";
 import { profile } from "@/content/profile";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // Only in-page entries take part in the scroll-spy; an off-site link has no
@@ -72,8 +71,11 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Desktop links */}
-          <ul className="hidden items-center gap-1 lg:flex">
+          {/* Links and controls share one right-aligned group, so the logo sits
+              alone on the left rather than the menu floating in the middle. */}
+          <div className="flex items-center gap-2">
+            {/* Desktop links */}
+            <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => {
               const isExternal = Boolean(link.href);
               const isActive = !isExternal && activeId === link.id;
@@ -104,21 +106,9 @@ export function Navbar() {
                 </li>
               );
             })}
-          </ul>
+            </ul>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
             <ThemeToggle />
-
-            {/* The CV is not published. This keeps a single clear call to
-                action in the navbar without putting the document itself on the
-                open internet — anyone who wants it can ask. */}
-            <Button asChild size="sm" className="hidden sm:inline-flex">
-              <a href="#contact">
-                <Mail />
-                Get in Touch
-              </a>
-            </Button>
 
             <button
               type="button"
@@ -181,15 +171,6 @@ export function Navbar() {
                   </motion.li>
                 ))}
               </ul>
-
-              <div className="mt-2 border-t border-line p-2 pt-3">
-                <Button asChild className="w-full">
-                  <a href="#contact" onClick={() => setMenuOpen(false)}>
-                    <Mail />
-                    Get in Touch
-                  </a>
-                </Button>
-              </div>
             </motion.nav>
           </motion.div>
         ) : null}
