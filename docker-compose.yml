@@ -14,7 +14,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: miftahul-portfolio:latest
+    # A version, never `latest`. This tag is the rollback handle: rebuilding
+    # over `latest` overwrites the image that was working, so a bad deploy can
+    # only be undone by building again from git and hoping. Raise this on every
+    # deploy — the previous tag stays on the host, and going back is
+    # `image:` edited down one version plus `docker compose up -d`, under
+    # thirty seconds and no build.
+    image: miftahul-portfolio:1.0.0
     container_name: portfolio
     restart: unless-stopped
 

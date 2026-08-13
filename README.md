@@ -127,15 +127,32 @@ cd miftahul-riziq-web
 docker compose up -d --build
 ```
 
-To update after a push:
+To update after a push, raise `image:` in `docker-compose.yml` first — `1.0.0`
+to `1.1.0` — then:
 
 ```bash
-git pull && docker compose up -d --build
+git pull && grep 'image:' docker-compose.yml && docker compose up -d --build
 ```
 
-`--build` is not optional. Without it Compose reuses the existing
-`miftahul-portfolio:latest` image and the pull changes nothing you can see —
-the single most common way a deploy appears to do nothing.
+`--build` is not optional. Without it Compose reuses the image already on the
+host and the pull changes nothing you can see — the single most common way a
+deploy appears to do nothing.
+
+The `grep` is there to catch the other half of that failure: if the pull did
+not bring the new tag, the build overwrites the image that is currently working
+and the rollback goes with it. Read the tag before letting the build run.
+
+### Rolling back
+
+The previous tag is still on the host, so going back is an edit and a restart:
+
+```bash
+# set image: back to the previous version, then
+docker compose up -d
+```
+
+Under thirty seconds, no build. That is the entire reason for versioned tags
+rather than `latest`.
 
 Then check it is serving, not merely running:
 
