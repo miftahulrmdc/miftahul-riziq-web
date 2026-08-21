@@ -55,9 +55,9 @@ export const profile = {
    */
   web3formsKey: "f8b81ea8-d0d8-4e0e-ab5a-ac810bd926fd",
 
-  // TODO: the CV decoded as "miftahulriiziiq@gmail.com" (doubled i's — likely a
+  // TODO: the CV decoded as "miftahulriziq@rmdc.my.id" (doubled i's — likely a
   // typo in the PDF itself). Confirm which address you want shown publicly.
-  email: "miftahulriiziiq@gmail.com",
+  email: "miftahulriziq@rmdc.my.id",
 
   /** Short line under the hero name. */
   tagline:
@@ -77,7 +77,7 @@ export const profile = {
   socials: {
     // TODO: replace with your real profile URLs.
     github: "https://github.com/miftahulrmdc",
-    linkedin: "https://www.linkedin.com/in/miftahul-riziq-b10544230/",
+    linkedin: "https://www.linkedin.com/in/miftahul-riziq/",
 
     /**
      * The lab's own site — same apex this CV is served from. Shown in the
@@ -88,7 +88,7 @@ export const profile = {
      * long. Point the DNS at something — even a holding page listing the
      * stack — rather than leaving it dead.
      */
-    rmdc: "https://rmdc.my.id",
+    rmdc: "https://rmdc.my.id/en",
   },
 
   /*
